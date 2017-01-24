@@ -1,0 +1,5 @@
+I believe our team has done a good job of figuring out the first few steps for this assignment. We all agreed to read up on Head First C and to get to the section which covers creating a linux-like command line as well as getting a basic opengl program up and running. We all are a little uncertain what direction either project might go in so we wanted to get our feet wet with both the opengl library and C in general to get a feel for what will be achieveable and what we can stretch for. 
+
+Amy volunteered to be scrum master, which I appreciated, as I am not the most organized person and didn't want to force that upon my teammates. Amy seems to be on top of all of her responsibilities so I think she is the right person to be scrum master.
+
+The only thing I am still apprehensive about is understanding the scope of the different "petals" of the software systems flower. I think our project ideas are kind of vanilla and I would like to do something cool and different, but its difficult to come up with reasonable ideas without a full understanding of the topics we can be exploring. 
