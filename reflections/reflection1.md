@@ -16,15 +16,15 @@ Question:
 Consider the following pseudo-code:
 
         function foo(){
-        int[] y;
+          int[] y;
 
-        for(int i=1;i<11;i*2){
-        y.add(i);
-        }
+          for(int i=1;i<11;i*2){
+            y.add(i);
+          }
 
-        int[] x = array[3]; //Create array of size 3
+          int[] x = array[3]; //Create array of size 3
 
-        x=y;
+          x=y;
 
         }
 
