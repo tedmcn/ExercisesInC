@@ -15,18 +15,18 @@ Question:
 
 Consider the following pseudo-code:
 
-`function foo(){
-  int[] y;
+        function foo(){
+        int[] y;
 
-  for(int i=1;i<11;i*2){
-    y.add(i);
-  }
-  
-  int[] x = array[3]; //Create array of size 3
-  
-  x=y;
+        for(int i=1;i<11;i*2){
+        y.add(i);
+        }
 
-}`
+        int[] x = array[3]; //Create array of size 3
+
+        x=y;
+
+        }
 
 Assuming the code above is written in a compiled language, will this code compile? If not at what step of the compilation process will the code terminate?
 
