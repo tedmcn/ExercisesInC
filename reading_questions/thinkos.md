@@ -5,19 +5,47 @@
 
 1) Give an example of a feature common in interpreted languages that is rare in compiled languages.
 
+A common feature in interpreted lanuages that is rare in compiled languages
+is the support for dynamic variable typing.
+
 2) Name two advantages of static typing over dynamic typing.
+
+Using static typing helps ensure there are no bugs in the program regarding
+typing because a staticly typed language will find the errors at compile time
+rather than runtime. This means you don't need to enumerate the possible
+patterns the code can follow to find the errors.
+
+This also helps save space because you don't need to save the variable names
+during runtime, the compiler abstracts them away when compiling.
 
 3) Give an example of a static semantic error.
 
+You would get a static semantic error if you try to pass a int to a function
+that takes in a char*.
+
 4) What are two reasons you might want to turn off code optimization?
 
+You might want to turn it off because it will make your compiliation take a 
+longer amount of time which is inifficient if you just want to test your code
+while you are writing it. It also has the potential to change your bugs making
+them harder to troubleshoot (if they exist).
+
 5) When you run `gcc` with `-S`, why might the results look different on different computers?
+
+The result will look different because the flag outputs the code into assembly.
+Assembly code is machine specific so when C compiles into assembly it is
+creating code specific to the hardware specs of the machine compiling it.
 
 6) If you spell a variable name wrong, or if you spell a function name wrong, 
 the error messages you get might look very different.  Why?
 
+The Linking stage of the compilation process is responsible for the names
+and values of both functions and variables and therefor throws similar errors.
+
 7) What is a segmentation fault?
 
+This is an error you get when you attempt to read or write at an incorrect
+location in memory.
 
 ## Chapter 2
 
@@ -26,14 +54,37 @@ the error messages you get might look very different.  Why?
 
 1) Give a real-world example of virtualization (ideally not one of the ones in the book).
 
+Banks create the illusion that they are currently holding all assets given to
+them by investors and that any and everyone can withdraw all money they put
+in the bank. In truth, the money isn't always there, it's moving through the
+economy and will (hopefully) be there when someone wants to withdraw.
+
 2) What is the difference between a program and a process?
+
+A processes is a virtualized program. The two have a many-to-many relationship
+where a program can have many processes and vice-versa, but the main difference
+is the way that the OS treats the processes. They are given virtualized memory,
+storage and hardware access. Processes think they are alone and have full
+access to all resources. The main goal is to keep the isolated moving parts,
+isolated.
 
 3) What is the primary purpose of the process abstraction?  What illusion does the process abstraction create?
 
+The goal of process abstraction is to keep multiple processes from accessing
+the same resource at once. This would otherwise cause issues where process a
+asks the wifi card (for example) a question, and the response is then sent to 
+process b when they ask a question at the same time. The abstraction creates
+the illusion, to the processes, that they have full access to all resources.
+
 4) What is the kernel?
+
+The kernel is responsible for very core OS operations such as creating threads,
+memory management, device management, as well as system calls.
 
 5) What is a daemon?
  
+A daemon is a kind of background process that is waiting for a trigger to be
+activated.
 
 ## Chapter 3
 
