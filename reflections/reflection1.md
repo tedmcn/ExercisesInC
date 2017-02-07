@@ -4,4 +4,8 @@
 
   At the beginning of the first Sprint, we were really at a loss for what type of project we were going to do because anything that sounded fun was too intense and anything that sounded reasonable or even easy was boring and trivial. We were planning on just doing the bouncing ball because it was done in a previous class. We eventually expanded on the bouncing ball project and incorperated the B-curve, which I think makes the project a lot more interesting.
 
-[Exercises in C](../exercises/ex01)
+[Exercises in C 1](../exercises/ex01)
+
+[Exercises in C 2](../exercises/ex02)
+
+[Reading Questions](../reading_questions/thinkos.md)
