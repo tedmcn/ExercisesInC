@@ -9,3 +9,25 @@
 [Exercises in C 2](../exercises/ex02)
 
 [Reading Questions](../reading_questions/thinkos.md)
+
+
+Question:
+
+Consider the following pseudo-code:
+
+function foo(){
+  int[] y;
+
+  for(int i=1;i<11;i*2){
+    y.add(i);
+  }
+  
+  int[] x = array[3]; //Create array of size 3
+  
+  x=y;
+
+}
+
+Assuming the code above is written in a compiled language, will this code compile? If not at what step of the compilation process will the code terminate?
+
+The code will recieve an error during the 3rd step of compilation during the static checking. The above code create an array with 4 items in it and then tries to assign that whole array to an array with 3 indexes. This is from section 1.3 in Think OS.
