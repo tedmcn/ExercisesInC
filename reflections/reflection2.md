@@ -11,7 +11,7 @@
 
   [Reading Questions](../reading_questions/thinkos.md)
 
-  ### Exam Question:
+### Exam Question:
 
   Which of the following types of file systems would be most efficient for a computer which is editing movies?
 
