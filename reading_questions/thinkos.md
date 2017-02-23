@@ -93,30 +93,100 @@ activated.
 
 1) The Georgian alphabet has 33 letters.  How many bit are needed to specify a letter?
 
+You would need 6 bits since 5 bits can represent 32 different letters and we need
+one extra, so 6 bits of information.
+
 2) In the UTF-16 character encoding, the binary representation of a character can take up to 32 bits.  
 Ignoring the details of the encoding scheme, how many different characters can be represented?
 
+With 32 bits you can represent 1024*1024*1024*4 characters which calculates to
+be 4,294,967,296
+
 3) What is the difference between "memory" and "storage" as defined in Think OS?
+
+Memory refers to volitle information storage such as in ram (as it loses all
+information when it loses power). Storage is used to refer to more stable forms
+of storage such as a Hard Disk or SSD.
 
 4) What is the difference between a GiB and a GB?  What is the percentage difference in their sizes?
 
+GiB is a number with base 2. GB is base 10. GiB is a bit more accurate since in
+computers we deal with binary frequently.
+
+The percent difference between the two is about 7%.
+
 5) How does the virtual memory system help isolate processes from each other?
+
+The virtual memory helps keep processes isolated by adding a layer of abstraction
+between the physical harware and the virtual hardware (ie virtual memory). The 
+system keeps track of which processes can access which pieces of hardware or
+memory, and it makes sure that no process can access a resource of another process
+unless specifically instructed otherwise.
 
 6) Why do you think the stack and the heap are usually located at opposite ends of the address space?
 
+This is because the stack and heap both need to grow dynamically. If they were in
+the middle of the structure they would not be able to grow out if need be, this
+way the stack or heap can expand if more memory is needed to be saved.
+
 7) What Python data structure would you use to represent a sparse array?
+
+I don't know python specifically, but it sounds like you can implement a sparse
+array with a hashmap. With a hashmap, all values are 0 by default and all keys
+are already "added" since it hashes the key to find the value. This would be 
+efficient because all the hashmap wouldn't have to actually save all the 0's
+for each value since it's the default value.
 
 8) What is a context switch?
 
+A context switch is when a given process is frozen, and then another process
+is run in it's place. The first process can finished.
+
 In this directory, you should find a subdirectory named `aspace` that contains `aspace.c`.  Run it on your computer and compare your results to mine.
+  
+    Address of main is 0x40057d
+    Address of global is 0x60104c
+    Address of local is 0x7fff6a673ce4
+    Address of p is 0x145b010
+  
   
 1) Add a second call to `malloc` and check whether the heap on your system grows up (toward larger addresses).  
 
+
+    Address of main is 0x40057d
+    Address of global is 0x60104c
+    Address of local is 0x7ffd8e6b30ac
+    Address of p is 0x1e47010
+    Address of q is 0x1e470a0
+
+    When running the code a second time I found the 2nd varible had a larger
+    address.
+
+
 2) Add a function that prints the address of a local variable, and check whether the stack grows down.  
+
+    5
+    Address of main is 0x40057d
+    Address of global is 0x60104c
+    Address of local is 0x7ffcda4d4b2c
+    Address of p is 0xc28010
+    Address of q is 0xc280a0
+
+    Accessing the value of a local variable make the stack grow downward.
+
 
 3) Choose a random number between 1 and 32, and allocate two chunks with that size.  
 How much space is there between them?  Hint: Google knows how to subtract hexadecimal numbers.
 
+    Address of main is 0x40057d
+    Address of global is 0x60104c
+    Address of local is 0x7ffeec44c52c
+    Address of p is 0x19d1010
+    Address of q is 0x19d10a0
+    Address of a is 0x19d11b0
+    Address of b is 0x19d11d0
+
+There are 32 bits between them or 2^(n+1)
 
 ## Chapter 4
 
@@ -126,9 +196,24 @@ How much space is there between them?  Hint: Google knows how to subtract hexade
 1) What abstractions do file systems provide?  Give an example of something that is logically 
 true about files systems but not true of their implementations.
 
+File systems abstract away the fact that files are constructed of thousands of
+tiny spaces in memory, not necisarrily all next to one another, and only show
+to us the file neatly together, ready to read or write.
+
 2) What information do you imagine is stored in an `OpenFileTableEntry`?
 
+OpenFileTableEntry would most likely have a portion of the file's text stored in
+it, who has access to it, the file position, and perhaps a pointer to the
+original file.
+
 3) What are some of the ways operating systems deal with the relatively slow performance of persistent storage?
+
+Caching is the process of keeping a memory of the most frequently
+accessed queries and saving the solution instead of recalculating it. You can buffer
+which is the process of waiting for the final change of a file to commit any changes.
+The computer can also prefetch data it predicts it might need and finally it can
+only transfer blocks of memory at a time as the time difference from writing
+1 byte and 8KiB is negligible.
 
 4) Suppose your program writes a file and prints a message indicating that it is done writing.  
 Then a power cut crashes your computer.  After you restore power and reboot the computer, you find that the 
@@ -136,9 +221,34 @@ file you wrote is not there.  What happened?
 
 5) Can you think of one advantage of a File Allocation Table over a UNIX inode?  Or an advantage of a inode over a FAT?
 
+An advantage of using FAT over an inode might be that the size of files can be 
+more dynamic, because if a file only needs one block, the inode would still use
+12 blocks, while the FAT system only needs one. 
+
+However, it is more expensive to read the next block on a FAT system as you have
+to follow a pointer instead of continuing down the physical memory.
+
 6) What is overhead?  What is fragmentation?
 
+Overhead is the cost of running, in this case, its the cost of an empty block.
+We want the size of an empty block to be as near 0 as possible without sacrificing
+any functionality.
+
+Fragmentation is when you've allocated more blocks then necisarry and arn't using
+the total. You have empty blocks.
+
 7) Why is the "everything is a file" principle a good idea?  Why might it be a bad idea?
+
+This is a good idea because it is technically true. There is nothing magical
+about any given range of values in memory that happens to be a file, other than
+the fact that somewhere else it has been defined to be "a file". The more you
+can abstract away concepts like "files", the more all the different pieces of a
+computer can work together.
+
+It might be a bad way to think like this though because there are a lot of other
+notions that come with the idea of a file, such as "a file has an owner", which 
+does not necisarrily have to be true. It's not good because the meaning in the 
+expression might get lost in the semantics of the word "file".
 
 If you would like to learn more about file systems, a good next step is to learn about journaling file systems.  
 Start with [this Wikipedia article](https://en.wikipedia.org/wiki/Journaling_file_system), then 
