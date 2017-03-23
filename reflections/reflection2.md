@@ -5,3 +5,21 @@
   I hate to sound so "woe is me", but I really tried to help them do the code. I set up an object framework so that they could fill in the simple little functions without necissarily having to worry about the big picture, but I havn't seen any progress on that. Furthermore, I know we, Prof. Downey, spoke specifically about team coding so that many people can get their hands dirty at once, but only recently did they all install a proper linux partition with the needed libraries. Even in regards to installing linux, I was trying to be very helpful, but in the first week or two of class when I offered the response I would get is "I'll figure it out at home".
   
   I think I'm going to try to force the four of us to meet this weekend so we can all actually code together.
+
+
+  I didn't do any more of the Head First C examples because I have been focusing on our project code.
+
+  [Reading Questions](../reading_questions/thinkos.md)
+
+### Exam Question:
+
+  Which of the following types of file systems would be most efficient for a computer which is editing movies?
+
+1) iNode with a block size of 1KiB
+2) iNode with a block size of 4KiB
+3) iNode with a block size of 8KiB
+4) FAT file system
+
+3 because you want the largest size nodes since we are editing large movies (we don't have to worry so much about fragmentation), and we don't want a FAT file system because it would be too expensive to find the next page consistantly.
+
+This was from 4.2 Disk Metadata.
