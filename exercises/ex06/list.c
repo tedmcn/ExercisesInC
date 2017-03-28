@@ -54,8 +54,22 @@ void print_list(Node **list) {
  * returns: int or -1 if the list is empty
  */
 int pop(Node **list) {
-    // FILL THIS IN!
-    return 0;
+    //Grab the first node
+    Node *current = *list;
+    
+    //Check to see if the list is empty
+    if(current==NULL){
+        return -1;
+    }
+    
+    //Save the value to be returned
+    int v = current->val;
+    
+    //re-assign the list to be a pointer to the new current
+    *list = current->next;
+    
+    //Return the removed value
+    return v;
 }
 
 
@@ -65,7 +79,8 @@ int pop(Node **list) {
  * val: value to add
  */
 void push(Node **list, int val) {
-    // FILL THIS IN!
+    Node *current = *list;
+    *list = make_node(val, current);
 }
 
 
@@ -79,8 +94,36 @@ void push(Node **list, int val) {
  * returns: number of nodes removed
  */
 int remove_by_value(Node **list, int val) {
-    // FILL THIS IN!
-    return 0;
+
+    //Create counter variable to store number of nodes removed
+    int count = 0;
+    
+    //Create a placeholder node
+    Node *current = *list;
+    
+    //Check if the first node exists
+    if(current!=NULL){
+        //If so and it's value is the val we are looking for
+        if(current->val==val){
+            //Pop and increment count
+            *list = current->next;
+            count = count+1;
+        }
+    }
+    
+    //While the following node isn't null
+    while(current != NULL && current->next !=NULL){
+        //If the following node holds the value we are looking for
+       if(current->next->val==val){
+           //Skip the next node and increment
+           current->next = current->next->next;
+           count=count+1;
+       }
+       //Check the next node
+       current = current->next;
+    }
+    
+    return count;
 }
 
 
@@ -91,31 +134,83 @@ int remove_by_value(Node **list, int val) {
  * list: pointer to pointer to Node
  */
 void reverse(Node **list) {
-    // FILL THIS IN!
+    //Grab the first node
+    Node *current = *list;
+   
+    
+    //An empty list or list of one item is the same when reversed
+    if(current==NULL || current->next==NULL){
+        return;
+    }
+    
+    Node *next = current->next;
+    Node *prev = NULL;
+    
+    //Then for every pointer which links two nodes, reverse its order
+    while(current!=NULL){
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    *list = prev;
 }
 
 
 int main() {
-    Node *head = make_node(1, NULL);
-    head->next = make_node(2, NULL);
-    head->next->next = make_node(3, NULL);
-    head->next->next->next = make_node(4, NULL);
-
+    
+//Regular Tests
+    Node *head = make_node(0,NULL);
     Node **list = &head;
+    int i;
+    for(i=1;i<30;i++){
+        push(list,i);
+        print_list(list);
+    }
+    
+    remove_by_value(list,0);
     print_list(list);
-
-    int retval = pop(list);
+    
+    remove_by_value(list,29);
     print_list(list);
-
-    push(list, retval+10);
-    print_list(list);
-
-    remove_by_value(list, 3);
-    print_list(list);
-
-    remove_by_value(list, 7);
-    print_list(list);
-
+    
     reverse(list);
     print_list(list);
+
+//Null Tests
+
+    Node *head2 = NULL;
+    Node **list2 = &head2;
+    
+    print_list(list2);
+    
+    pop(list2);
+    print_list(list2);
+    
+    reverse(list2);
+    print_list(list2);
+
+    
+    // Node *head = make_node(1, NULL);
+    // head->next = make_node(2, NULL);
+    // head->next->next = make_node(3, NULL);
+    // head->next->next->next = make_node(4, NULL);
+
+    // Node **list = &head;
+    // print_list(list);
+
+    // int retval = pop(list);
+    // print_list(list);
+    
+    // push(list, retval+10);
+    // print_list(list);
+
+    // remove_by_value(list, 3);
+    // print_list(list);
+
+    // remove_by_value(list, 7);
+    // print_list(list);
+
+    // reverse(list);
+    // print_list(list);
 }
