@@ -18,6 +18,7 @@ License: MIT License https://opensource.org/licenses/MIT
 // errno is an external global variable that contains
 // error information
 extern int errno;
+int val = 123;
 
 
 // get_seconds returns the number of seconds since the
@@ -32,7 +33,6 @@ double get_seconds() {
 
 void child_code(int i) 
 {
-    sleep(i);
     printf("Hello from child %d.\n", i);
     exit(i);
 }
@@ -62,25 +62,28 @@ int main(int argc, char *argv[])
       
         // create a child process
         printf("Creating child %d.\n", i);
-	pid = fork();
-      
-	/* check for an error */
-	if (pid == -1) {
-	    fprintf(stderr, "fork failed: %s\n", strerror(errno));
-	    perror(argv[0]);
-	    exit(1);
-	}
-      
-	/* see if we're the parent or the child */
-	if (pid == 0) {
-	  child_code(i);
-	}
+    	pid = fork();
+
+        printf("%p", &val);
+        printf("%i\n", getpid());
+        
+    	/* check for an error */
+    	if (pid == -1) {
+    	    fprintf(stderr, "fork failed: %s\n", strerror(errno));
+    	    perror(argv[0]);
+    	    exit(1);
+    	}
+          
+    	/* see if we're the parent or the child */
+    	if (pid == 0) {
+    	  child_code(i);
+    	}
     }
     
     /* parent continues */
     printf("Hello from the parent.\n");
     
-    for (i=0; i<num_children; i++) {
+    for (i=0; i<num_children-1; i++) {
         pid = wait(&status);
       
 	if (pid == -1) {
