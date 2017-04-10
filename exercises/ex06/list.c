@@ -75,6 +75,7 @@ int pop(Node **list) {
 
 /* Adds a new element to the beginning of the list.
  * 
+
  * list: pointer to pointer to Node
  * val: value to add
  */
@@ -214,3 +215,4 @@ int main() {
     // reverse(list);
     // print_list(list);
 }
+
