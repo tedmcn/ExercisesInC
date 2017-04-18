@@ -1,3 +1,24 @@
+/* Ted McNulty
+ * Ex12
+ * 4/18/17
+ * 
+ * Counter_mutex took the following time:
+ * real    0m7.447s
+ * user    0m4.284s
+ * sys     0m3.296s
+ *
+ * While the regular counter took:
+ * 
+ * real    0m5.219s
+ * user    0m6.728s
+ * sys     0m0.268s
+ * 
+ * The sys time tells us how much actual time the processor was doing
+ * operations, so that will hint to us the overhead. Since the difference
+ * is more than a 10x increase, we can assume that this type of synchronization
+ * is very time-costly.
+*/
+
 /*     This file contains an example program from The Little Book of
        Semaphores, available from Green Tea Press, greenteapress.com
 
@@ -80,6 +101,7 @@ typedef struct {
     int counter;
     int end;
     int *array;
+    Semaphore *sem;
 } Shared;
 
 /*  make_shared
@@ -102,6 +124,9 @@ Shared *make_shared (int end)
     for (i=0; i<shared->end; i++) {
         shared->array[i] = 0;
     }
+    
+    shared->sem = make_semaphore(1);
+    
     return shared;
 }
 
@@ -160,8 +185,17 @@ void child_code (Shared *shared)
 	    if (shared->counter >= shared->end) {
 	        return;
 	    }
-	    shared->array[shared->counter]++;
-	    shared->counter++;
+	    
+	    //Wait before incrementing
+	    sem_wait(shared->sem);
+	        //Increment the value
+	        {
+    	    shared->array[shared->counter]++;
+    	    shared->counter++;
+	        }
+	    //Signal after incrementing
+	    sem_signal(shared->sem);
+        
 
 	    if (shared->counter % 100000 == 0) {
 	       // printf ("%d\n", shared->counter);
