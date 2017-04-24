@@ -41,8 +41,15 @@ int pop(Node **head) {
 
     next_node = (*head)->next;
     retval = (*head)->val;
+    
+    //Free the popped node
+    free(*head);
+    
     *head = next_node;
 
+    //Free the temp node
+    free(next_node);
+    
     return retval;
 }
 
@@ -71,6 +78,10 @@ int remove_by_value(Node **head, int val) {
 	if (node->next->val == val) {
 	    victim = node->next;
 	    node->next = victim->next;
+	    
+	    //Free the removed value
+	    free(victim);
+	    
 	    return 1;
 	}
     }
@@ -96,6 +107,10 @@ void reverse(Node **head) {
 	next = temp;
     }
     *head = node;
+    
+    //Free our temporary node
+    free(next);
+    free(temp);
 }
 
 // Adds a new element to the list before the indexed element.
@@ -133,6 +148,18 @@ Node *make_something() {
     return node3;
 }
 
+//Function to free all nodes give a pointer to the head of a list
+//
+//Head : Pointer to pointer of first element in list
+void free_all(Node *head){
+    Node *temp;
+    while(head!=NULL){
+        temp = head;
+        head= head->next;
+        free(temp);
+    }
+}
+
 int main() {
     // make a list of even numbers
     Node *test_list = make_node(2, NULL);
@@ -151,6 +178,8 @@ int main() {
 
     printf("test_list\n");
     print_list(test_list);
+    //Free the first test list
+    free_all(test_list);
 
     // make an empty list
     printf("empty\n");
@@ -159,9 +188,13 @@ int main() {
     // add an element to the empty list
     insert_by_index(&empty, 1, 0);
     print_list(empty);
+    //Free the second test list
+    free_all(empty);
 
     Node *something = make_something();
-    free(something);
+    // free(something);
+    //Free the third list
+    free_all(something);
 
     return 0;
 }
